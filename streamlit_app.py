@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import io
 import func
-from xls2xlsx import XLS2XLSX
+#from xls2xlsx import XLS2XLSX
 
 with st.sidebar:
     st.header('Cara penggunaan:')
