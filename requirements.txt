@@ -51,5 +51,4 @@ urllib3==2.3.0
 watchdog==6.0.0
 webcolors==24.11.1
 xlrd==2.0.1
-xls2xlsx==0.2.0
 XlsxWriter==3.2.2
