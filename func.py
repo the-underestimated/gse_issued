@@ -39,45 +39,42 @@ def readProcess_Order(dataOrder, dataRaw_1, dataRaw_2, dataRaw_3, dataRaw_4):
 
         
         # Change XLS to XLSX
-        '''
-        file1Rename = XLS2XLSX(dataRaw_1)
-        file1Rename = file1Rename.to_xlsx()
-        file1Read = pd.read_excel(dataRaw_1, engine='xlrd')
+        def readConvert_xls_xlsx(fileInput):
+            fileRaw = pd.read_html(fileInput)
+            # fileRaw is a list of DataFrames, get the first (and likely only) one
+            fileRaw = fileRaw[0]  
+            # Convert to numpy array and reshape to 2D if necessary
+            fileRawArray = fileRaw.to_numpy() 
+            if fileRawArray.ndim > 2:  # Check if array is more than 2D
+                fileRawArray = fileRawArray.reshape(-1, fileRawArray.shape[-1])
+            # Now create the DataFrame from the 2D array
+            fileRawArray = pd.DataFrame(fileRawArray)
+            fileRaw = fileRawArray.rename({0:'LOCATION', 1:'BIN', 2:'CATEGORY', 3:'SUB CATEGORY', 4:'PN',
+                                            5:'PN_DESCRIPTION', 6:'SN', 7:'GL_COMPANY', 8:'GL_EXPENDITURE',
+                                            9:'GL', 10:'GL_COST_CENTER', 11:'WO', 12:'WO_DESCRIPTION',
+                                            13:'AC', 14:'GOODS_RCVD_BATCH', 15:'BATCH', 16:'TRANSACTION_NO', 
+                                            17:'CREATED_DATE', 18:'ISSUED_TO', 19:'QTY_RETURN_STOCK', 20:'UNIT_COST',
+                                            21:'QTY', 22:'ORDER_TYPE', 23:'ORDER_NUMBER', 24:'PN_ORDER',
+                                            25:'SN_ORDER', 26:'CONDITION'}, axis=1)
+            return fileRaw
 
-        file2Rename = XLS2XLSX(dataRaw_2)
-        file2Rename = file2Rename.to_xlsx()
-        file2Read = pd.read_excel(dataRaw_2, engine='xlrd')
+        file1Table = readConvert_xls_xlsx(dataRaw_1)
+        file2Table = readConvert_xls_xlsx(dataRaw_2)
+        file3Table = readConvert_xls_xlsx(dataRaw_3)
+        file4Table = readConvert_xls_xlsx(dataRaw_4)
 
-        file3Rename = XLS2XLSX(dataRaw_3)
-        file3Rename = file3Rename.to_xlsx()
-        file3Read = pd.read_excel(dataRaw_3, engine='xlrd')
 
-        file4Rename = XLS2XLSX(dataRaw_4)
-        file4Rename = file4Rename.to_xlsx()
-        file4Read = pd.read_excel(dataRaw_4, engine='xlrd')
-        '''
-        file1Rename = XLS2XLSX(dataRaw_1)
-        file1Rename.to_xlsx("INVENTORY_REPORT1.xlsx")
 
-        file2Rename = XLS2XLSX(dataRaw_2)
-        file2Rename.to_xlsx("INVENTORY_REPORT2.xlsx")
-
-        file3Rename = XLS2XLSX(dataRaw_3)
-        file3Rename.to_xlsx("INVENTORY_REPORT3.xlsx")
-
-        file4Rename = XLS2XLSX(dataRaw_4)
-        file4Rename.to_xlsx("INVENTORY_REPORT4.xlsx")
-
-        file1Table = pd.read_excel("INVENTORY_REPORT1.xlsx")
+        #file1Table = pd.read_excel("INVENTORY_REPORT1.xlsx")
         file1Table.rename({'GOODS_RCVD_BATCH':'BATCH', 'BATCH':'GRB', 'Unnamed: 26': 'CONDITION', 'AC': 'REGISTRASI_GSE'}, axis=1, inplace=True)
 
-        file2Table = pd.read_excel("INVENTORY_REPORT2.xlsx")
+        #file2Table = pd.read_excel("INVENTORY_REPORT2.xlsx")
         file2Table.rename({'GOODS_RCVD_BATCH':'BATCH', 'BATCH':'GRB', 'Unnamed: 26': 'CONDITION', 'AC': 'REGISTRASI_GSE'}, axis=1, inplace=True)
 
-        file3Table = pd.read_excel("INVENTORY_REPORT3.xlsx")
+        #file3Table = pd.read_excel("INVENTORY_REPORT3.xlsx")
         file3Table.rename({'GOODS_RCVD_BATCH':'BATCH', 'BATCH':'GRB', 'Unnamed: 26': 'CONDITION', 'AC': 'REGISTRASI_GSE'}, axis=1, inplace=True)
 
-        file4Table = pd.read_excel("INVENTORY_REPORT4.xlsx")
+        #file4Table = pd.read_excel("INVENTORY_REPORT4.xlsx")
         file4Table.rename({'GOODS_RCVD_BATCH':'BATCH', 'BATCH':'GRB', 'Unnamed: 26': 'CONDITION', 'AC': 'REGISTRASI_GSE'}, axis=1, inplace=True)
 
         # Merging 4 file jadi satu
