@@ -1,5 +1,4 @@
 import pandas as pd
-from xls2xlsx import XLS2XLSX
 import numpy as np
 import io
 
@@ -15,7 +14,7 @@ def readProcess_Order(dataOrder, dataRaw_1, dataRaw_2, dataRaw_3, dataRaw_4):
         orderDetailTableMerging = orderDetailTableMerging.set_index('GRB')
         orderDetailTable2 = orderDetailTable.rename({
             'GRB_HISTORY':'GRB',
-            'ORDER PN ':'PN'
+            'ORDER PN':'PN'
             },axis=1)
 
         orderDetailTable2.dropna(axis='columns', inplace=True)
