@@ -7,14 +7,14 @@ def readProcess_Order(dataOrder, dataRaw_1, dataRaw_2, dataRaw_3, dataRaw_4):
         orderDetailTable = pd.read_csv(dataOrder)
         orderDetailTableMerging = orderDetailTable[['GRB_HISTORY', 'UNIT COST', 'CURRENCY ']]
         orderDetailTableMerging.rename({
-            'UNIT COST':'INDEXED_PRICE',
-            'CURRENCY ':'INDEXED_CURRENCY',
-            'GRB_HISTORY':'GRB',
+            'UNIT COST' : 'INDEXED_PRICE',
+            'CURRENCY ' : 'INDEXED_CURRENCY',
+            'GRB_HISTORY' : 'GRB',
             }, axis=1, inplace=True)
         orderDetailTableMerging = orderDetailTableMerging.set_index('GRB')
         orderDetailTable2 = orderDetailTable.rename({
-            'GRB_HISTORY':'GRB',
-            'ORDER PN':'PN'
+            'GRB_HISTORY' : 'GRB',
+            'ORDER PN' : 'PN'
             },axis=1)
 
         orderDetailTable2.dropna(axis='columns', inplace=True)
